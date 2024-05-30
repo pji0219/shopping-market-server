@@ -6,13 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const helmet_1 = __importDefault(require("helmet"));
+const path_1 = __importDefault(require("path"));
+const products_1 = __importDefault(require("./router/products"));
 const app = (0, express_1.default)();
+app.use('./uploads', express_1.default.static(path_1.default.join(__dirname, './uploads')));
 app.use(express_1.default.json());
 app.use((0, helmet_1.default)());
 app.use((0, morgan_1.default)('tiny'));
-app.use('/', (req, res) => {
-    res.status(200).json({ message: 'hello, world!!' });
-});
+app.use('/products', products_1.default);
 app.use((req, res, next) => {
     res.sendStatus(404);
 });

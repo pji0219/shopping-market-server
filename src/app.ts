@@ -3,17 +3,17 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import path from 'path';
 
+import productsRouter from './router/products';
+
 const app = express();
 
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('./uploads', express.static(path.join(__dirname, './uploads')));
 
 app.use(express.json());
 app.use(helmet());
 app.use(morgan('tiny'));
 
-// app.use('/', (req: Request, res: Response) => {
-//   res.status(200).json({ message: 'hello, world!!' });
-// });
+app.use('/products', productsRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(404);
