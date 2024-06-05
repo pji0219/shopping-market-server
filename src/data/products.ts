@@ -13,7 +13,32 @@ type NewProduct = Product & {
   createAt: string;
 };
 
-let products: NewProduct[] = [];
+let products: NewProduct[] = [
+  {
+    title: '맥북',
+    price: '200',
+    quantity: '1',
+    totalPrice: '200',
+    option: '15인치',
+    imageUrl: 'none',
+    id: '1',
+    createAt: new Date().toString(),
+  },
+  {
+    title: '아이폰',
+    price: '100',
+    quantity: '1',
+    totalPrice: '100',
+    option: '프로',
+    imageUrl: 'none',
+    id: '2',
+    createAt: new Date().toString(),
+  },
+];
+
+export async function getAll(): Promise<NewProduct[]> {
+  return products;
+}
 
 export async function create(product: Product): Promise<NewProduct> {
   const newProduct: NewProduct = {
