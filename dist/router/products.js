@@ -30,6 +30,7 @@ const express_1 = __importDefault(require("express"));
 const productController = __importStar(require("../controller/products"));
 const multer_1 = require("../middleware/multer");
 const router = express_1.default.Router();
+router.get('/', productController.getProducts);
 router.post('/', multer_1.upload.single('image'), productController.postProduct);
 exports.default = router;
 //# sourceMappingURL=products.js.map

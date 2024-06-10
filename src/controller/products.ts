@@ -4,6 +4,7 @@ import * as productRepogitory from '../data/products';
 
 export async function getProducts(req: Request, res: Response): Promise<void> {
   const products = productRepogitory.getAll();
+  console.log(products);
   res.status(200).json(products);
 }
 
