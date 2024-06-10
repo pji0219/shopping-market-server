@@ -36,8 +36,7 @@ exports.postProduct = exports.getProducts = void 0;
 const productRepogitory = __importStar(require("../data/products"));
 function getProducts(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const products = productRepogitory.getAll();
-        console.log(products);
+        const products = yield productRepogitory.getAll();
         res.status(200).json(products);
     });
 }
@@ -46,7 +45,7 @@ function postProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         if (req.file && req.body) {
             const product = Object.assign(Object.assign({}, req.body), { imageUrl: `../uploads/${req.file.filename}` });
-            const newProduct = productRepogitory.create(product);
+            const newProduct = yield productRepogitory.create(product);
             res.status(201).json(newProduct);
         }
         else {
