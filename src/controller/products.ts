@@ -8,7 +8,7 @@ export async function getProducts(req: Request, res: Response): Promise<void> {
   res.status(200).json(products);
 }
 
-export async function postProduct(req: Request, res: Response): Promise<void> {
+export async function postProduct(req: Request, res: Response) {
   if (req.file && req.body) {
     const product: productRepogitory.Product = {
       ...req.body,
@@ -16,8 +16,8 @@ export async function postProduct(req: Request, res: Response): Promise<void> {
     };
     const newProduct = await productRepogitory.create(product);
 
-    res.status(201).json(newProduct);
+    return res.status(201).json(newProduct);
   } else {
-    res.status(400).json({ message: 'Product and image are required' });
+    return res.status(400).json({ message: 'Product and image are required' });
   }
 }

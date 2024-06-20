@@ -46,10 +46,10 @@ function postProduct(req, res) {
         if (req.file && req.body) {
             const product = Object.assign(Object.assign({}, req.body), { imageUrl: `../uploads/${req.file.filename}` });
             const newProduct = yield productRepogitory.create(product);
-            res.status(201).json(newProduct);
+            return res.status(201).json(newProduct);
         }
         else {
-            res.status(400).json({ message: 'Product and image are required' });
+            return res.status(400).json({ message: 'Product and image are required' });
         }
     });
 }
