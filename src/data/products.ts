@@ -4,15 +4,15 @@ export type Product = {
   description: string;
   title: string;
   price: string;
-  // quantity: string;
-  // totalPrice: string;
+  quantity: string;
+  totalPrice: string;
   options: string[];
   image: string;
 };
 
 type NewProduct = Product & {
   id: string;
-  // createAt: Date;
+  createAt: Date;
 };
 
 let products: NewProduct[] = [
@@ -21,24 +21,24 @@ let products: NewProduct[] = [
     description: '우왕굳',
     title: '맥북',
     price: '200',
-    // quantity: '1',
-    // totalPrice: '200',
+    quantity: '1',
+    totalPrice: '200',
     options: ['15인치', '13인치'],
     image: '',
     id: '1',
-    // createAt: new Date(),
+    createAt: new Date(),
   },
   {
     category: '전자제품',
     description: '우왕굳',
     title: '아이폰',
     price: '100',
-    // quantity: '1',
-    // totalPrice: '100',
+    quantity: '1',
+    totalPrice: '100',
     options: ['프로', '프로맥스'],
     image: '',
     id: '2',
-    // createAt: new Date(),
+    createAt: new Date(),
   },
   {
     category: '남성',
@@ -48,7 +48,10 @@ let products: NewProduct[] = [
     image: '',
     options: ['XS', 'S', 'M', 'L', 'XL'],
     price: '80000',
+    quantity: '1',
+    totalPrice: '100',
     title: '나일론 패널 & 스터드 디테일 코튼 스웻셔츠',
+    createAt: new Date(),
   },
 ];
 
@@ -60,7 +63,7 @@ export async function create(product: Product): Promise<NewProduct> {
   const newProduct: NewProduct = {
     ...product,
     id: Date.now().toString(),
-    // createAt: new Date(),
+    createAt: new Date(),
   };
 
   products = [newProduct, ...products];
