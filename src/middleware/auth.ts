@@ -5,6 +5,7 @@ import { jwtSecretKey } from '../controller/auth';
 import * as userRepository from '../data/user';
 
 const AUTH_ERROR = { message: 'Authentication Error' };
+
 interface AuthRequest extends Request {
   userId: string;
   token: string;

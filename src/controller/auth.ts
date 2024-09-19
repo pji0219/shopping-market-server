@@ -9,7 +9,23 @@ const jwtExpiresInDays = '2d';
 const bcryptSaltRounds = 12;
 const INVALID = '유효하지 않은 아이디 또는 비밀번호 입니다.';
 
-export async function signup(req: Request, res: Response) {
+interface SignRequest extends Request {
+  body: {
+    username: string;
+    password: string;
+    name: string;
+    email: string;
+  };
+}
+
+interface LoginRequest extends Request {
+  body: {
+    username: string;
+    password: string;
+  };
+}
+
+export async function signup(req: SignRequest, res: Response) {
   const { username, password, name, email } = req.body;
 
   const found = await userRepository.findByUsername(username);
@@ -29,7 +45,7 @@ export async function signup(req: Request, res: Response) {
   res.status(201).json({ token, username });
 }
 
-export async function login(req: Request, res: Response) {
+export async function login(req: LoginRequest, res: Response) {
   const { username, password } = req.body;
 
   const user = await userRepository.findByUsername(username);
