@@ -10,7 +10,7 @@ export type Product = {
   image: string;
 };
 
-type NewProduct = Product & {
+export type NewProduct = Product & {
   id: string;
   createAt: Date;
 };

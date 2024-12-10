@@ -1,51 +1,66 @@
-import { Product } from './products';
+import { NewProduct } from './products';
 
-type NewCart = Product & {
+type NewCart = NewProduct & {
   userId: string;
 };
 
 type Cart = {
   userId: string;
-  cart: Product[];
+  cart: NewProduct[];
 };
 
 const carts: Cart[] = [];
 
-export async function getCart(id: string): Promise<Product[] | undefined> {
+export async function getCart(id: string): Promise<NewProduct[] | undefined> {
   const found = carts.find(cart => cart.userId === id);
   return found?.cart;
 }
 
-export async function createCart(cart: NewCart) {
+export async function createCart(product: NewCart) {
+  // 장바구니에 아무것도 없던 사용자에 상품 담기
   const newCart: Cart = {
-    userId: cart.userId,
+    userId: product.userId,
     cart: [
       {
-        category: cart.category,
-        description: cart.description,
-        title: cart.title,
-        price: cart.price,
-        quantity: cart.quantity,
-        totalPrice: cart.totalPrice,
-        options: cart.options,
-        image: cart.image,
+        id: product.id,
+        category: product.category,
+        description: product.description,
+        title: product.title,
+        price: product.price,
+        quantity: product.quantity,
+        totalPrice: product.totalPrice,
+        options: product.options,
+        image: product.image,
+        createAt: product.createAt,
       },
     ],
   };
 
-  const existingCart = {
-    category: cart.category,
-    description: cart.description,
-    title: cart.title,
-    price: cart.price,
-    quantity: cart.quantity,
-    totalPrice: cart.totalPrice,
-    options: cart.options,
-    image: cart.image,
+  // 기존에 장바구니 목록이 있던 사용자에 상품 담기
+  const existingCart: NewProduct = {
+    id: product.id,
+    category: product.category,
+    description: product.description,
+    title: product.title,
+    price: product.price,
+    quantity: product.quantity,
+    totalPrice: product.totalPrice,
+    options: product.options,
+    image: product.image,
+    createAt: product.createAt,
   };
 
-  const found = carts.find(cart => cart.userId === cart.userId);
+  const found = carts.find(cart => cart.userId === product.userId);
+
   if (found) {
+    const existing = found.cart.find(cart => cart.id === product.id);
+
+    // 기존 방바구니에 같은 상품이 이미 있을 경우
+    if (existing) {
+      // 기존의 것 삭제후 새로운 데이터를 넣음 (수량 증가를 클라이언트에서 처리하기 땜에)
+      found.cart.filter(cart => cart.id !== product.id);
+    }
+
     found.cart.push(existingCart);
     return found.cart;
   }
