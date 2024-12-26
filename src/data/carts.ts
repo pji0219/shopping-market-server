@@ -7,12 +7,15 @@ type Cart = {
 
 const carts: Cart[] = [];
 
-export async function getCart(id: string): Promise<NewProduct[] | undefined> {
+export async function getById(id: string): Promise<NewProduct[] | undefined> {
   const found = carts.find(cart => cart.userId === id);
   return found?.cart;
 }
 
-export async function createCart(id: string, product: NewProduct) {
+export async function create(
+  id: string,
+  product: NewProduct,
+): Promise<NewProduct | undefined> {
   // 장바구니에 아무것도 없던 사용자에 상품 담기
   const newCart: Cart = {
     userId: id,
@@ -58,9 +61,9 @@ export async function createCart(id: string, product: NewProduct) {
     }
 
     found.cart.push(existingCart);
-    return found.cart;
+    return found.cart[found.cart.length - 1];
   }
 
   carts.push(newCart);
-  return newCart.cart;
+  return newCart.cart[newCart.cart.length - 1];
 }
