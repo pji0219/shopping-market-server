@@ -7,11 +7,13 @@ type User = {
 
 type Users = User & {
   id: string;
+  isAdmin?: string;
 };
 
 const users: Users[] = [
   {
     id: '1',
+    isAdmin: 'y',
     username: 'pji',
     password: '$2b$12$gyCiSouorUkKhHGtkvBmDeHnDvfyHXN9v7KaG4V4rH4kfnLc7UIJ6',
     name: 'pji',
