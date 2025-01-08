@@ -4,7 +4,6 @@ import * as productRepogitory from '../data/products';
 import * as userRepogitory from '../data/user';
 
 interface ProductReq extends Request {
-  userId: string;
   body: {
     category: string;
     description: string;

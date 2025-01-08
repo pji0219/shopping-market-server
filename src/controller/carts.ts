@@ -3,16 +3,11 @@ import { Request, Response } from 'express';
 import * as cartRepogitory from '../data/carts';
 import { NewProduct } from '../data/products';
 
-interface CartGetReq extends Request {
-  userId: string;
-}
-
 interface CartReq extends Request {
-  userId: string;
   body: NewProduct;
 }
 
-export async function getCart(req: CartGetReq, res: Response): Promise<void> {
+export async function getCart(req: Request, res: Response): Promise<void> {
   const cart = cartRepogitory.getById(req.userId);
 
   res.status(200).json(cart);

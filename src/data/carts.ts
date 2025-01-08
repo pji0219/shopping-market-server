@@ -1,19 +1,21 @@
 import { NewProduct } from './products';
 
 type Cart = {
-  userId: string;
+  userId: string | undefined;
   cart: NewProduct[];
 };
 
 const carts: Cart[] = [];
 
-export async function getById(id: string): Promise<NewProduct[] | undefined> {
+export async function getById(
+  id: string | undefined,
+): Promise<NewProduct[] | undefined> {
   const found = carts.find(cart => cart.userId === id);
   return found?.cart;
 }
 
 export async function create(
-  id: string,
+  id: string | undefined,
   product: NewProduct,
 ): Promise<NewProduct | undefined> {
   // 장바구니에 아무것도 없던 사용자에 상품 담기

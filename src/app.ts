@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 
 import productsRouter from './router/products';
 import authRouter from './router/auth';
+import cartRouter from './router/carts';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use('/products', productsRouter);
 app.use('/auth', authRouter);
+app.use('/carts', cartRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(404);

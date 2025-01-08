@@ -6,16 +6,7 @@ import * as userRepository from '../data/user';
 
 const AUTH_ERROR = { message: 'Authentication Error' };
 
-interface AuthRequest extends Request {
-  userId: string;
-  token: string;
-}
-
-export async function isAuth(
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction,
-) {
+export async function isAuth(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.get('Authorization');
 
   if (!(authHeader && authHeader.startsWith('Bearer '))) {
